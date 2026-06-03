@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>山梨グルメ検索 Cooook</title>
+
+<style>
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* ヘッダー */
+header {
+    background: #d97b3d;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+/* スライダー */
+.slider {
+    display: flex;
+    overflow-x: auto;
+}
+
+.slider img {
+    width: 300px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.slider {
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-track {
+    display: flex;
+}
+
+/* 検索 */
+.search-box {
+    background: white;
+    padding: 45px;
+    text-align: center;
+}
+
+/* 記事 */
+.articles {
+    padding: 10px;
+}
+
+.articles h2 {
+    padding: 30px;
+    text-align: center;
+}
+
+.articles img {
+    width: 300px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列 */
+    gap: 20px; /* 間隔 */
+}
+
+.articles a:nth-child(4) {
+    grid-column: 2;
+}
+
+.articles a:nth-child(6) {
+    grid-column: 2;
+}
+
+.article-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+/* 店舗一覧 */
+.store-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px,1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.store {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* 詳細 */
+.detail {
+    padding: 15px;
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🍽️ 山梨グルメ検索 Cooook</h1>
+</header>
+
+<!-- トップ画面 -->
+<div id="topPage">
+
+    <!-- スライド -->
+    <div class="slider">
+        <img src="images\ramen.jpeg">
+        <img src="images\sushi.jpg">
+        <img src="images\pasta.jpg">
+        <img src="images\macaron.jpg">
+        <img src="images\nimono.jpg">
+        <img src="images\omuraisu.jpg">
+        <img src="images\yakiniku.jpg">
+        <img src="images\bagel.jpg">
+        <img src="images\French.jpg">
+
+        <img src="images\ramen.jpeg">
+        <img src="images\sushi.jpg">
+        <img src="images\pasta.jpg">
+        <img src="images\macaron.jpg">
+        <img src="images\nimono.jpg">
+        <img src="images\omuraisu.jpg">
+        <img src="images\yakiniku.jpg">
+        <img src="images\bagel.jpg">
+        <img src="images\French.jpg">
+    </div>
+
+<!-- 検索フォーム -->
+<div class="search-box">
+    <input type="text" id="keyword" placeholder="店名で検索">
+
+    <select id="genre">
+        <option value="">ジャンル</option>
+        <option value="和食">和食</option>
+        <option value="洋食">洋食</option>
+        <option value="中華">中華</option>
+        <option value="麺">麺</option>
+        <option value="カフェ">カフェ</option>
+        <option value="洋菓子">洋菓子</option>
+        <option value="和菓子">和菓子</option>
+        <option value="パン">パン</option>
+        <option value="イタリアン">イタリアン</option>
+        <option value="フレンチ">フレンチ</option>
+        <option value="焼肉">焼肉</option>
+        <option value="寿司">寿司</option>
+        <option value="居酒屋">居酒屋</option>
+        <option value="ドラッグストア">ドラッグストア</option>
+    </select>
+<!-- 金額検索選択欄のみ表示あり。 -->
+<!-- なぜか検索結果には反映なし。const storesには金額直接入力済。 -->
+    <select id="price">
+        <option value="">価格帯</option>
+        <option value="low1">～1000円</option>
+        <option value="low2">1000円〜3000円</option>
+        <option value="mid1">3000円～5000円</option>
+        <option value="mid2">5000円～7000円</option>
+        <option value="high1">7000円～9000円</option>
+        <option value="high2">9000円～</option>
+    </select>
+
+    <button onclick="search()">検索</button>
+</div>
+
+    <!-- 記事 -->
+    <div class="articles">
+        <h2>山梨グルメ特集</h2>
+        <a href="https://news.yahoo.co.jp/articles/b9e46d9f72256ff480b2ab122b7e4bd6d302a55e" target="_blank">
+            <div class="article-card">
+                <img src="images/seigetsu.jpg">
+                 <p>「山梨行ったら絶対買う」老舗菓子店の"洋菓子"に絶賛の声</p>
+            </div>
+        </a>
+        
+        <a href="https://tabelog.com/matome/yamanashi/list/" target="_blank">
+            <div class="article-card">
+                <img src="images/basashi.jpg">
+                 <p>山梨県のグルメまとめ</p>
+            </div>
+        </a>
+
+        <a href="https://menma825.com/yamanashi-matome/" target="_blank">
+            <div class="article-card">
+                <img src="images/minobu.jpg">
+                 <p>山梨県の「ご当地グルメ」37選紹介</p>
+            </div>
+        </a>
+
+        <a href="https://tabelog.com/matome/6555" target="_blank">
+            <div class="article-card">
+                <img src="images/houtou.jpeg">
+                 <p>"必見"山梨に来たら食べるべきほうとう厳選7選</p>
+            </div>
+        </a>
+
+        <a href="https://rtrp.jp/locations/235/categories/9997/" target="_blank">
+            <div class="article-card">
+                <img src="images/kiyosato.jpg">
+                 <p>山梨グルメ"人気ランキング"</p>
+            </div>
+        </a>
+
+        <a href="https://www.nap-camp.com/mag/9076" target="_blank">
+            <div class="article-card">
+                <img src="images/wine.jpg">
+                 <p>名店から穴場・食べ歩きまで、一度は食べたいグルメを紹介</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- 一覧 -->
+<div id="listPage" class="store-list"></div>
+
+<!-- 詳細 -->
+<div id="detailPage" class="detail"></div>
+
+<script>
+// 下のデータは各ジャンル10個～15個。mapは反映なし;;
+// データ
+const stores = [
+{
+    id: 1,
+    name: "和食さゆり",
+    genre: "和食",
+    price: "5000～10000",
+    address: "山梨県甲府市中央1-5-14 蘆澤ビル1F",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.665689156188!2d138.56694027608253!3d35.66060747259381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601bf9654cbe98cf%3A0x3df247821a5898a8!2z5ZKM6aOf44GV44KG44KK!5e0!3m2!1sja!2sjp!4v1780248769519!5m2!1sja!2sjp",
+    phone: "050-5448-7476"
+},
+{
+    id: 2,
+    name: "紅梅や 甲府本店",
+    genre: "和食",
+    price: "昼1000～2000円/夜5000",
+    address: "山梨県甲府市丸の内1-15-6",
+    phone: "055-223-1210",
+    map: "https://www.google.com/maps?q=紅梅や 甲府本店 山梨県甲府市丸の内1-15-6"
+},
+{
+    id: 3,
+    name: "ほうとう不動 東恋路店",
+    genre: "和食",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町船津2458",
+    phone: "0555-72-8511",
+    map: "https://www.google.com/maps?q=ほうとう不動 東恋路店 山梨県南都留郡富士河口湖町船津2458"
+},
+{
+    id: 4,
+    name: "甲州ほうとう 小作 河口湖店",
+    genre: "和食",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町船津1638-1",
+    phone: "0555-72-1181",
+    map: "https://www.google.com/maps?q=甲州ほうとう 小作 河口湖店 山梨県南都留郡富士河口湖町船津1638-1"
+},
+{
+    id: 5,
+    name: "寿し料理 花田",
+    genre: "和食",
+    price: "3000～5000",
+    address: "山梨県笛吹市石和町八田41-1",
+    phone: "055-262-0202",
+    map: "https://www.google.com/maps?q=寿し料理 花田 山梨県笛吹市石和町八田41-1"
+},
+{
+    id: 6,
+    name: "大衆割烹 すゞ菜",
+    genre: "和食",
+    price: "3000～5000",
+    address: "山梨県甲州市塩山下於曽1504-1",
+    phone: "0553-33-8233",
+    map: "https://www.google.com/maps?q=大衆割烹 すゞ菜 山梨県甲州市塩山下於曽1504-1"
+},
+{
+    id: 7,
+    name: "創旬割烹 光千",
+    genre: "和食",
+    price: "4000～6000",
+    address: "山梨県都留市下谷4-2-20",
+    phone: "0554-43-8805",
+    map: "https://www.google.com/maps?q=創旬割烹 光千 山梨県都留市下谷4-2-20"
+},
+{
+    id: 8,
+    name: "和食 赤沢",
+    genre: "和食",
+    price: "昼2000～/夜5000～9999",
+    address: "山梨県甲府市宝2-19-4",
+    phone: "055-269-6595",
+    map: "https://www.google.com/maps?q=和食 赤沢 山梨県甲府市宝2-19-4"
+},
+{
+    id: 9,
+    name: "夢屋",
+    genre: "和食",
+    price: "1000～2000",
+    address: "山梨県甲府市堀之内町666-1",
+    phone: "055-241-9762",
+    map: "https://www.google.com/maps?q=夢屋 山梨県甲府市堀之内町666-1"
+},
+{
+    id: 10,
+    name: "いわし亭",
+    genre: "和食",
+    price: "2000～4000",
+    address: "山梨県甲府市小瀬町1131",
+    phone: "055-241-1382",
+    map: "https://www.google.com/maps?q=いわし亭 山梨県甲府市小瀬町1131"
+},
+{
+    id: 11,
+    name: "洋食やしき",
+    genre: "洋食",
+    price: "1000～3000",
+    address: "山梨県山梨市鴨居寺261-4",
+    phone: "0553-39-8255",
+    map: "https://www.google.com/maps?q=洋食やしき 山梨県山梨市鴨居寺261-4"
+},
+{
+    id: 12,
+    name: "THE BENJARONG",
+    genre: "洋食",
+    price: "2000～6000",
+    address: "山梨県甲府市中央1-7-15 古名屋ホテル内",
+    phone: "050-5594-7489",
+    map: "https://www.google.com/maps?q=THE BENJARONG 山梨県甲府市中央1-7-15 古名屋ホテル内"
+},
+{
+    id: 13,
+    name: "レストラン スコット",
+    genre: "洋食",
+    price: "2000～5000",
+    address: "山梨県甲府市中央1-3-1",
+    phone: "055-232-2424",
+    map: "https://www.google.com/maps?q=レストラン スコット 山梨県甲府市中央1-3-1"
+},
+{
+    id: 14,
+    name: "フォーハーツカフェ",
+    genre: "洋食",
+    price: "1000～4000",
+    address: "山梨県甲府市丸の内1-16-13",
+    phone: "055-237-7793",
+    map: "https://www.google.com/maps?q=フォーハーツカフェ 山梨県甲府市丸の内1-16-13"
+},
+{
+    id: 15,
+    name: "ハングリーゲート",
+    genre: "洋食",
+    price: "1000～3000",
+    address: "山梨県中巨摩郡昭和町西条5219-2",
+    phone: "055-275-1766",
+    map: "https://www.google.com/maps?q=ハングリーゲート 山梨県中巨摩郡昭和町西条5219-2"
+},
+{
+    id: 16,
+    name: "レストラン シャンモリ",
+    genre: "洋食",
+    price: "2000～6000",
+    address: "山梨県甲州市勝沼町下岩崎1453",
+    phone: "0553-44-5556",
+    map: "https://www.google.com/maps?q=レストラン シャンモリ 山梨県甲州市勝沼町下岩崎1453"
+},
+{
+    id: 17,
+    name: "レストラン 鳥居平",
+    genre: "洋食",
+    price: "3000～8000",
+    address: "山梨県甲州市勝沼町菱山4729",
+    phone: "0553-44-3080",
+    map: "https://www.google.com/maps?q=レストラン 鳥居平 山梨県甲州市勝沼町菱山4729"
+},
+{
+    id: 18,
+    name: "La Cantinetta",
+    genre: "洋食",
+    price: "2000～4000",
+    address: "山梨県山梨市小原東111-1",
+    phone: "0553-22-7633",
+    map: "https://www.google.com/maps?q=La Cantinetta 山梨県山梨市小原東111-1"
+},
+{
+    id: 19,
+    name: "ガリバーハウス",
+    genre: "洋食",
+    price: "1000～2000",
+    address: "山梨県山梨市上神内川1126-4",
+    phone: "0553-23-0083",
+    map: "https://www.google.com/maps?q=ガリバーハウス 山梨県山梨市上神内川1126-4"
+},
+{
+    id: 20,
+    name: "アズベリーパーク",
+    genre: "洋食",
+    price: "1000～2000",
+    address: "山梨県甲府市緑が丘2-10-2",
+    phone: "055-252-0145",
+    map: "https://www.google.com/maps?q=アズベリーパーク 山梨県甲府市緑が丘2-10-2"
+},
+{
+    id: 21,
+    name: "上海",
+    genre: "中華",
+    price: "",
+    address: "山梨県山梨市上石森552-4",
+    phone: "0553-22-9571",
+    map: "https://www.google.com/maps?q=上海 山梨県山梨市上石森552-4"
+},
+{
+    id: 22,
+    name: "味平",
+    genre: "中華",
+    price: "",
+    address: "山梨県山梨市東59-1",
+    phone: "0553-23-1821",
+    map: "https://www.google.com/maps?q=味平 山梨県山梨市東59-1"
+},
+{
+    id: 23,
+    name: "中国家庭料理 桃",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市住吉5-1-21",
+    phone: "055-235-4330",
+    map: "https://www.google.com/maps?q=中国家庭料理 桃 山梨県甲府市住吉5-1-21"
+},
+{
+    id: 24,
+    name: "蘭園",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市中央1-7-15 古名屋ホテル内",
+    phone: "055-235-1122",
+    map: "https://www.google.com/maps?q=蘭園 山梨県甲府市中央1-7-15 古名屋ホテル内"
+},
+{
+    id: 25,
+    name: "江戸中華 花華",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市中央1-13-15",
+    phone: "055-242-8074",
+    map: "https://www.google.com/maps?q=江戸中華 花華 山梨県甲府市中央1-13-15"
+},
+{
+    id: 26,
+    name: "你好（ニイハオ）",
+    genre: "中華",
+    price: "",
+    address: "山梨県中央市山之神3388-3",
+    phone: "055-273-6577",
+    map: "https://www.google.com/maps?q=你好 ニイハオ 山梨県中央市山之神3388-3"
+},
+{
+    id: 27,
+    name: "順和",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市国母8-28-14",
+    phone: "055-225-4858",
+    map: "https://www.google.com/maps?q=順和 山梨県甲府市国母8-28-14"
+},
+{
+    id: 28,
+    name: "中華Dining 桃李",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市東下条町63-1",
+    phone: "055-287-6027",
+    map: "https://www.google.com/maps?q=中華Dining 桃李 山梨県甲府市東下条町63-1"
+},
+{
+    id: 29,
+    name: "花梨",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市太田町27-3",
+    phone: "055-233-2299",
+    map: "https://www.google.com/maps?q=花梨 山梨県甲府市太田町27-3"
+},
+{
+    id: 30,
+    name: "小満",
+    genre: "中華",
+    price: "",
+    address: "山梨県甲府市朝日5-6-15",
+    phone: "055-206-3506",
+    map: "https://www.google.com/maps?q=小満 山梨県甲府市朝日5-6-15"
+},
+{
+    id: 31,
+    name: "ほうとう不動 東恋路店",
+    genre: "麺",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町船津2458",
+    phone: "0555-72-8511",
+    map: "https://www.google.com/maps?q=ほうとう不動 東恋路店 山梨県南都留郡富士河口湖町船津2458"
+},
+{
+    id: 32,
+    name: "甲州ほうとう 小作 河口湖店",
+    genre: "麺",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町船津1638-1",
+    phone: "0555-72-1181",
+    map: "https://www.google.com/maps?q=甲州ほうとう 小作 河口湖店 山梨県南都留郡富士河口湖町船津1638-1"
+},
+{
+    id: 33,
+    name: "蓬来軒 本店",
+    genre: "麺",
+    price: "～1000",
+    address: "山梨県甲府市中央4-12-28",
+    phone: "055-233-2454",
+    map: "https://www.google.com/maps?q=蓬来軒 本店 山梨県甲府市中央4-12-28"
+},
+{
+    id: 34,
+    name: "中国料理 四川亭",
+    genre: "麺",
+    price: "1000～2000",
+    address: "山梨県甲府市大里町4162-9",
+    phone: "055-243-6263",
+    map: "https://www.google.com/maps?q=中国料理 四川亭 山梨県甲府市大里町4162-9"
+},
+{
+    id: 35,
+    name: "順和",
+    genre: "麺",
+    price: "1000～2000",
+    address: "山梨県甲府市国母8-28-14",
+    phone: "055-225-4858",
+    map: "https://www.google.com/maps?q=順和 山梨県甲府市国母8-28-14"
+},
+{
+    id: 36,
+    name: "上海食堂",
+    genre: "麺",
+    price: "1000～3000",
+    address: "山梨県甲府市国母周辺",
+    phone: "055-241-0000",
+    map: "https://www.google.com/maps?q=上海食堂 山梨県甲府市国母"
+},
+{
+    id: 37,
+    name: "中華料理 桂林",
+    genre: "麺",
+    price: "～1000",
+    address: "山梨県甲府市丸の内",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=中華料理 桂林 山梨県甲府市丸の内"
+},
+{
+    id: 38,
+    name: "純手打ちそば 奥藤本店",
+    genre: "麺",
+    price: "1000～3000",
+    address: "山梨県甲府市国母7-5-12",
+    phone: "055-222-0910",
+    map: "https://www.google.com/maps?q=純手打ちそば 奥藤本店 山梨県甲府市国母7-5-12"
+},
+{
+    id: 39,
+    name: "丸政そば",
+    genre: "麺",
+    price: "～1000",
+    address: "山梨県北杜市小淵沢町",
+    phone: "0551-36-2521",
+    map: "https://www.google.com/maps?q=丸政そば 山梨県北杜市小淵沢町"
+},
+{
+    id: 40,
+    name: "えびすや",
+    genre: "麺",
+    price: "～1000",
+    address: "山梨県甲府市中央",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=えびすや 山梨県甲府市中央"
+},
+{
+    id: 41,
+    name: "Fluunt KOFU",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県甲府市中央1-1-7",
+    phone: "055-232-7789",
+    map: "https://www.google.com/maps?q=Fluunt KOFU 山梨県甲府市中央1-1-7"
+},
+{
+    id: 42,
+    name: "PAPER MOON",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県南都留郡山中湖村平野481-1",
+    phone: "0555-62-2041",
+    map: "https://www.google.com/maps?q=PAPER MOON 山梨県南都留郡山中湖村平野481-1"
+},
+{
+    id: 43,
+    name: "寺崎コーヒー",
+    genre: "カフェ",
+    price: "～1000",
+    address: "山梨県甲府市丸の内1-20-22",
+    phone: "055-233-5055",
+    map: "https://www.google.com/maps?q=寺崎コーヒー 山梨県甲府市丸の内1-20-22"
+},
+{
+    id: 44,
+    name: "アキトコーヒー",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県甲府市武田1-1-13",
+    phone: "055-254-3551",
+    map: "https://www.google.com/maps?q=アキトコーヒー 山梨県甲府市武田1-1-13"
+},
+{
+    id: 45,
+    name: "葡萄屋kofu ハナテラスcafe",
+    genre: "カフェ",
+    price: "2000～3000",
+    address: "山梨県南都留郡富士河口湖町大石1477-1",
+    phone: "0555-72-8180",
+    map: "https://www.google.com/maps?q=葡萄屋kofu ハナテラスcafe 山梨県南都留郡富士河口湖町大石1477-1"
+},
+{
+    id: 46,
+    name: "蔵元ごはん&カフェ 酒蔵 櫂",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県山梨市北567",
+    phone: "0553-22-4047",
+    map: "https://www.google.com/maps?q=蔵元ごはん カフェ 酒蔵 櫂 山梨県山梨市北567"
+},
+{
+    id: 47,
+    name: "桃の農家カフェ ラペスカ",
+    genre: "カフェ",
+    price: "1000～2000",
+    address: "山梨県山梨市正徳寺1131-1",
+    phone: "0553-34-5359",
+    map: "https://www.google.com/maps?q=桃の農家カフェ ラペスカ 山梨県山梨市正徳寺1131-1"
+},
+{
+    id: 48,
+    name: "BRAND NEW DAY COFFEE",
+    genre: "カフェ",
+    price: "1000～2000",
+    address: "山梨県南都留郡富士河口湖町1477-1",
+    phone: "0555-25-7011",
+    map: "https://www.google.com/maps?q=BRAND NEW DAY COFFEE 山梨県南都留郡富士河口湖町1477-1"
+},
+{
+    id: 49,
+    name: "ラ・ボエーム・ミミ",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町河口3033",
+    phone: "0555-76-6669",
+    map: "https://www.google.com/maps?q=ラ ボエーム ミミ 山梨県南都留郡富士河口湖町河口3033"
+},
+{
+    id: 50,
+    name: "ZEIT BAKERY CAFE",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県南都留郡山中湖村山中359-7",
+    phone: "0555-72-9081",
+    map: "https://www.google.com/maps?q=ZEIT BAKERY CAFE 山梨県南都留郡山中湖村山中359-7"
+},
+{
+    id: 51,
+    name: "カフェ ベラヴィスタ",
+    genre: "カフェ",
+    price: "3000～5000",
+    address: "山梨県山梨市江曽原1388",
+    phone: "0553-22-8811",
+    map: "https://www.google.com/maps?q=カフェ ベラヴィスタ 山梨県山梨市江曽原1388"
+},
+{
+    id: 52,
+    name: "グレープショップ ココロ",
+    genre: "カフェ",
+    price: "2000～3000",
+    address: "山梨県笛吹市",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=グレープショップ ココロ 山梨県笛吹市"
+},
+{
+    id: 53,
+    name: "カフェ ロッシュ",
+    genre: "カフェ",
+    price: "～2000",
+    address: "山梨県甲府市丸の内",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=カフェ ロッシュ 山梨県甲府市丸の内"
+},
+{
+    id: 54,
+    name: "icci KAWARA COFFEE LABO",
+    genre: "カフェ",
+    price: "～1000",
+    address: "山梨県笛吹市石和町松本829-4",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=icci KAWARA COFFEE LABO 山梨県笛吹市石和町松本829-4"
+},
+{
+    id: 55,
+    name: "hanging",
+    genre: "カフェ",
+    price: "1000～3000",
+    address: "山梨県笛吹市石和町唐柏416-3",
+    phone: "055-269-6355",
+    map: "https://www.google.com/maps?q=hanging 山梨県笛吹市石和町唐柏416-3"
+},
+{
+    id: 56,
+    name: "シェ・リー洋菓子店",
+    genre: "洋菓子",
+    price: "1000～5000",
+    address: "山梨県甲斐市玉川600-6",
+    phone: "055-276-1032",
+    map: "https://www.google.com/maps?q=シェ・リー洋菓子店 山梨県甲斐市玉川600-6"
+},
+{
+    id: 57,
+    name: "Patisserie TSUBO",
+    genre: "洋菓子",
+    price: "1000～6000",
+    address: "山梨県甲府市古上条町11-1",
+    phone: "055-288-8981",
+    map: "https://www.google.com/maps?q=Patisserie TSUBO 山梨県甲府市古上条町11-1"
+},
+{
+    id: 58,
+    name: "早川ベーカリー",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県甲府市中央1-1-2",
+    phone: "055-235-1515",
+    map: "https://www.google.com/maps?q=早川ベーカリー 山梨県甲府市中央1-1-2"
+},
+{
+    id: 59,
+    name: "お菓子工房mimi",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県甲府市高畑1-2-35",
+    phone: "070-6450-6207",
+    map: "https://www.google.com/maps?q=お菓子工房mimi 山梨県甲府市高畑1-2-35"
+},
+{
+    id: 60,
+    name: "フレーズ",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県山梨市下井尻917",
+    phone: "0553-23-0191",
+    map: "https://www.google.com/maps?q=フレーズ 山梨県山梨市下井尻917"
+},
+{
+    id: 61,
+    name: "アリス洋菓子店",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県甲府市太田町6-1",
+    phone: "055-233-9022",
+    map: "https://www.google.com/maps?q=アリス洋菓子店 山梨県甲府市太田町6-1"
+},
+{
+    id: 62,
+    name: "スローライフ",
+    genre: "洋菓子",
+    price: "1000～3000",
+    address: "山梨県甲府市朝日5-6-10",
+    phone: "055-253-5565",
+    map: "https://www.google.com/maps?q=スローライフ 山梨県甲府市朝日5-6-10"
+},
+{
+    id: 63,
+    name: "スイーツ 銀の糸",
+    genre: "洋菓子",
+    price: "1000～3000",
+    address: "山梨県中巨摩郡昭和町",
+    phone: "055-288-0768",
+    map: "https://www.google.com/maps?q=スイーツ 銀の糸 山梨県中巨摩郡昭和町"
+},
+{
+    id: 64,
+    name: "西洋菓子工房 BYZAN DEUX",
+    genre: "洋菓子",
+    price: "1000～3000",
+    address: "山梨県甲府市国玉町118-3",
+    phone: "055-237-8081",
+    map: "https://www.google.com/maps?q=西洋菓子工房 BYZAN DEUX 山梨県甲府市国玉町118-3"
+},
+{
+    id: 65,
+    name: "シャトレーゼテラス甲府丸の内店",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県甲府市丸の内2-4-11",
+    phone: "055-223-5031",
+    map: "https://www.google.com/maps?q=シャトレーゼテラス甲府丸の内店 山梨県甲府市丸の内2-4-11"
+},
+{
+    id: 66,
+    name: "河口湖チーズケーキガーデン",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県南都留郡富士河口湖町",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=河口湖チーズケーキガーデン 山梨県南都留郡富士河口湖町"
+},
+{
+    id: 67,
+    name: "アニーズ",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県南アルプス市",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=アニーズ 山梨県南アルプス市"
+},
+{
+    id: 68,
+    name: "八ヶ岳チーズケーキ工房",
+    genre: "洋菓子",
+    price: "1000～3000",
+    address: "山梨県北杜市小淵沢町",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=八ヶ岳チーズケーキ工房 山梨県北杜市小淵沢町"
+},
+{
+    id: 69,
+    name: "アン・グーテ・ア・ラ・カンパーニュ",
+    genre: "洋菓子",
+    price: "1000～3000",
+    address: "山梨県北杜市清里",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=アン グーテ ア ラ カンパーニュ 山梨県北杜市清里"
+},
+{
+    id: 70,
+    name: "クルル",
+    genre: "洋菓子",
+    price: "～1000",
+    address: "山梨県富士吉田市大明見",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=クルル 山梨県富士吉田市大明見"
+},
+{
+    id: 71,
+    name: "竹屋あさかわ",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市幸町9-25",
+    phone: "0120-752-288",
+    map: "https://www.google.com/maps?q=竹屋あさかわ 山梨県甲府市幸町9-25"
+},
+{
+    id: 72,
+    name: "桔梗屋 甲府本館",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市青沼1-3-11",
+    phone: "055-233-8800",
+    map: "https://www.google.com/maps?q=桔梗屋 甲府本館 山梨県甲府市青沼1-3-11"
+},
+{
+    id: 73,
+    name: "桔梗屋 東治郎 一宮店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県笛吹市一宮町坪井1928",
+    phone: "0553-47-3708",
+    map: "https://www.google.com/maps?q=桔梗屋 東治郎 一宮店 山梨県笛吹市一宮町坪井1928"
+},
+{
+    id: 74,
+    name: "黒蜜庵 きなこ亭",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市丸の内1-1-25",
+    phone: "055-254-7788",
+    map: "https://www.google.com/maps?q=黒蜜庵 きなこ亭 山梨県甲府市丸の内1-1-25"
+},
+{
+    id: 75,
+    name: "金多留満 本店",
+    genre: "和菓子",
+    price: "1000～3000",
+    address: "山梨県南都留郡富士河口湖町船津7407",
+    phone: "0555-72-2567",
+    map: "https://www.google.com/maps?q=金多留満 本店 山梨県南都留郡富士河口湖町船津7407"
+},
+{
+    id: 76,
+    name: "竹林堂 本店",
+    genre: "和菓子",
+    price: "1000～3000",
+    address: "山梨県南巨摩郡富士川町鰍沢1536",
+    phone: "0556-22-0115",
+    map: "https://www.google.com/maps?q=竹林堂 本店 山梨県南巨摩郡富士川町鰍沢1536"
+},
+{
+    id: 77,
+    name: "瓦屋",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県南アルプス市小笠原1603",
+    phone: "055-284-2100",
+    map: "https://www.google.com/maps?q=瓦屋 山梨県南アルプス市小笠原1603"
+},
+{
+    id: 78,
+    name: "井筒屋本店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市千塚1-2-10",
+    phone: "055-252-8420",
+    map: "https://www.google.com/maps?q=井筒屋本店 山梨県甲府市千塚1-2-10"
+},
+{
+    id: 79,
+    name: "もち吉 甲府店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市大里町5039",
+    phone: "055-242-0222",
+    map: "https://www.google.com/maps?q=もち吉 甲府店 山梨県甲府市大里町5039"
+},
+{
+    id: 80,
+    name: "だんごの早川",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市若松町5-7",
+    phone: "0120-046220",
+    map: "https://www.google.com/maps?q=だんごの早川 山梨県甲府市若松町5-7"
+},
+{
+    id: 81,
+    name: "五味餅菓子店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市中央2-3-9",
+    phone: "055-233-3035",
+    map: "https://www.google.com/maps?q=五味餅菓子店 山梨県甲府市中央2-3-9"
+},
+{
+    id: 82,
+    name: "竹泉",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市長松寺町4-16",
+    phone: "055-228-4006",
+    map: "https://www.google.com/maps?q=竹泉 山梨県甲府市長松寺町4-16"
+},
+{
+    id: 83,
+    name: "大野屋 美術館通り店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲府市貢川2-1-20",
+    phone: "055-227-8010",
+    map: "https://www.google.com/maps?q=大野屋 美術館通り店 山梨県甲府市貢川2-1-20"
+},
+{
+    id: 84,
+    name: "口福堂 ラザウォーク甲斐双葉店",
+    genre: "和菓子",
+    price: "～1000",
+    address: "山梨県甲斐市志田645-1",
+    phone: "0551-45-6386",
+    map: "https://www.google.com/maps?q=口福堂 ラザウォーク甲斐双葉店 山梨県甲斐市志田645-1"
+},
+{
+    id: 85,
+    name: "和乃果",
+    genre: "和菓子",
+    price: "1000～5000",
+    address: "山梨県山梨市牧丘町西保下1126",
+    phone: "090-1842-7110",
+    map: "https://www.google.com/maps?q=和乃果 山梨県山梨市牧丘町西保下1126"
+},
+{
+    id: 86,
+    name: "パン工房 ゼルコバ",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県北杜市白州町白須258-1",
+    phone: "0551-45-8124",
+    map: "https://www.google.com/maps?q=パン工房 ゼルコバ 山梨県北杜市白州町白須258-1"
+},
+{
+    id: 87,
+    name: "山のパン屋 桑の実",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県北杜市小淵沢町2968-1",
+    phone: "0551-36-5227",
+    map: "https://www.google.com/maps?q=山のパン屋 桑の実 山梨県北杜市小淵沢町2968-1"
+},
+{
+    id: 88,
+    name: "コーナーポケット 韮崎本店",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県韮崎市中田町小田川154",
+    phone: "0551-25-2366",
+    map: "https://www.google.com/maps?q=コーナーポケット 韮崎本店 山梨県韮崎市中田町小田川154"
+},
+{
+    id: 89,
+    name: "ベーカリー ポノ",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市大里町2154-138",
+    phone: "055-209-2186",
+    map: "https://www.google.com/maps?q=ベーカリー ポノ 山梨県甲府市大里町2154-138"
+},
+{
+    id: 90,
+    name: "きららベーカリー",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲斐市中下条851-1",
+    phone: "055-277-8709",
+    map: "https://www.google.com/maps?q=きららベーカリー 山梨県甲斐市中下条851-1"
+},
+{
+    id: 91,
+    name: "パン工房 李音",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県中央市井之口1092-4",
+    phone: "055-240-3537",
+    map: "https://www.google.com/maps?q=パン工房 李音 山梨県中央市井之口1092-4"
+},
+{
+    id: 92,
+    name: "ベーカリールーブル",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県南アルプス市小笠原1654-4",
+    phone: "055-284-0252",
+    map: "https://www.google.com/maps?q=ベーカリールーブル 山梨県南アルプス市小笠原1654-4"
+},
+{
+    id: 93,
+    name: "レイクベイク",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県南都留郡富士河口湖町大石2585-85",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=レイクベイク 山梨県南都留郡富士河口湖町大石2585-85"
+},
+{
+    id: 94,
+    name: "丸十パン 本店",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市丸の内2-28-6",
+    phone: "055-226-3455",
+    map: "https://www.google.com/maps?q=丸十パン 本店 山梨県甲府市丸の内2-28-6"
+},
+{
+    id: 95,
+    name: "ずんちゃんパン",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市上石田2-9-7",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=ずんちゃんパン 山梨県甲府市上石田2-9-7"
+},
+{
+    id: 96,
+    name: "ベーカリー ハチ",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市朝日4-5-5",
+    phone: "055-236-8882",
+    map: "https://www.google.com/maps?q=ベーカリー ハチ 山梨県甲府市朝日4-5-5"
+},
+{
+    id: 97,
+    name: "パンペパン",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市塩部3-1-31",
+    phone: "055-253-3380",
+    map: "https://www.google.com/maps?q=パンペパン 山梨県甲府市塩部3-1-31"
+},
+{
+    id: 98,
+    name: "製パン 麦玄",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県山梨市小原西952",
+    phone: "0553-34-8277",
+    map: "https://www.google.com/maps?q=製パン 麦玄 山梨県山梨市小原西952"
+},
+{
+    id: 99,
+    name: "ベーカリーカフェ はなぱんだ",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市上阿原町57-2",
+    phone: "055-222-1687",
+    map: "https://www.google.com/maps?q=ベーカリーカフェ はなぱんだ 山梨県甲府市上阿原町57-2"
+},
+{
+    id: 100,
+    name: "Pied nu（ピエヌ）",
+    genre: "パン",
+    price: "～1000",
+    address: "山梨県甲府市古府中町952-1",
+    phone: "055-252-6690",
+    map: "https://www.google.com/maps?q=Pied nu ピエヌ 山梨県甲府市古府中町952-1"
+},
+{
+    id: 101,
+    name: "クッチーナ ナトゥーラ",
+    genre: "イタリアン",
+    price: "1000～3000",
+    address: "山梨県山梨市万力2014-1",
+    phone: "0553-39-8410",
+    map: "https://www.google.com/maps?q=クッチーナ ナトゥーラ 山梨県山梨市万力2014-1"
+},
+{
+    id: 102,
+    name: "イタリアンレストラン＆バー るびい",
+    genre: "イタリアン",
+    price: "1000～5000",
+    address: "山梨県甲府市高畑2-8-12",
+    phone: "055-222-6226",
+    map: "https://www.google.com/maps?q=イタリアンレストラン るびい 山梨県甲府市高畑2-8-12"
+},
+{
+    id: 103,
+    name: "THE VAULT（ザ・ヴォルト）",
+    genre: "イタリアン",
+    price: "1000～3000",
+    address: "山梨県甲府市丸の内1-21-7 武藤ビルB1F",
+    phone: "055-237-0944",
+    map: "https://www.google.com/maps?q=THE VAULT 山梨県甲府市丸の内1-21-7"
+},
+{
+    id: 104,
+    name: "おいしい学校 ぼのボーノ",
+    genre: "イタリアン",
+    price: "1000～3000",
+    address: "山梨県北杜市須玉町下津金3058",
+    phone: "0551-20-7300",
+    map: "https://www.google.com/maps?q=おいしい学校 ぼのボーノ 山梨県北杜市須玉町下津金3058"
+},
+{
+    id: 105,
+    name: "フジヤマキッチン",
+    genre: "イタリアン",
+    price: "3000～5000",
+    address: "山梨県南都留郡山中湖村平野506-296",
+    phone: "0555-62-4155",
+    map: "https://www.google.com/maps?q=フジヤマキッチン 山梨県南都留郡山中湖村平野506-296"
+},
+{
+    id: 106,
+    name: "ミロ 清里",
+    genre: "イタリアン",
+    price: "1000～3000",
+    address: "山梨県北杜市高根町清里3545-1",
+    phone: "0551-48-3737",
+    map: "https://www.google.com/maps?q=ミロ 清里 山梨県北杜市高根町清里3545-1"
+},
+{
+    id: 107,
+    name: "CHIANTI-CoMO（キャンティコモ）",
+    genre: "イタリアン",
+    price: "1000～3000",
+    address: "山梨県南都留郡山中湖村山中213-7",
+    phone: "0555-62-9010",
+    map: "https://www.google.com/maps?q=キャンティコモ 山梨県南都留郡山中湖村山中213-7"
+},
+{
+    id: 108,
+    name: "RESTAURANT & GALLERY SOLA",
+    genre: "イタリアン",
+    price: "1000～5000",
+    address: "山梨県南都留郡山中湖村山中110",
+    phone: "0555-73-8511",
+    map: "https://www.google.com/maps?q=RESTAURANT GALLERY SOLA 山梨県南都留郡山中湖村山中110"
+},
+{
+    id: 109,
+    name: "トラットリア・パキーノ",
+    genre: "イタリアン",
+    price: "1000～5000",
+    address: "山梨県甲府市丸の内1-1-25",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=トラットリア パキーノ 山梨県甲府市丸の内1-1-25"
+},
+{
+    id: 110,
+    name: "Ristorante al anello",
+    genre: "イタリアン",
+    price: "3000～7000",
+    address: "山梨県南都留郡富士河口湖町船津7186-1",
+    phone: "050-5597-1555",
+    map: "https://www.google.com/maps?q=Ristorante al anello 山梨県南都留郡富士河口湖町船津7186-1"
+},
+{
+    id: 111,
+    name: "ITASHI",
+    genre: "フレンチ",
+    price: "5000～9000",
+    address: "山梨県甲府市上石田1-8-18",
+    phone: "055-287-7677",
+    map: "https://www.google.com/maps?q=ITASHI 山梨県甲府市上石田1-8-18"
+},
+{
+    id: 112,
+    name: "ラ・メゾン・アンシェンヌ",
+    genre: "フレンチ",
+    price: "5000～9000",
+    address: "山梨県山梨市牧丘町倉科5662-5",
+    phone: "0553-88-9152",
+    map: "https://www.google.com/maps?q=ラ メゾン アンシェンヌ 山梨県山梨市牧丘町倉科5662-5"
+},
+{
+    id: 113,
+    name: "ナチュラルフレンチ ZEN",
+    genre: "フレンチ",
+    price: "3000～7000",
+    address: "山梨県甲府市飯田3-10-25",
+    phone: "070-4803-2015",
+    map: "https://www.google.com/maps?q=ナチュラルフレンチ ZEN 山梨県甲府市飯田3-10-25"
+},
+{
+    id: 114,
+    name: "スティルドゥヤナギ",
+    genre: "フレンチ",
+    price: "1000～5000",
+    address: "山梨県甲府市住吉5-1-19",
+    phone: "055-237-6676",
+    map: "https://www.google.com/maps?q=スティルドゥヤナギ 山梨県甲府市住吉5-1-19"
+},
+{
+    id: 115,
+    name: "サドヤレストラン レアル・ドール",
+    genre: "フレンチ",
+    price: "5000～9000",
+    address: "山梨県甲府市北口3-3-24",
+    phone: "055-288-8723",
+    map: "https://www.google.com/maps?q=サドヤレストラン レアル ドール 山梨県甲府市北口3-3-24"
+},
+{
+    id: 116,
+    name: "ボンマルシェ",
+    genre: "フレンチ",
+    price: "1000～7000",
+    address: "山梨県甲府市中央1-5-12",
+    phone: "055-233-7877",
+    map: "https://www.google.com/maps?q=ボンマルシェ 山梨県甲府市中央1-5-12"
+},
+{
+    id: 117,
+    name: "MOG（モグ）",
+    genre: "フレンチ",
+    price: "3000～9000",
+    address: "山梨県甲府市朝日1丁目",
+    phone: "080-2105-1448",
+    map: "https://www.google.com/maps?q=MOG モグ 山梨県甲府市朝日1丁目"
+},
+{
+    id: 118,
+    name: "キャセロール",
+    genre: "フレンチ",
+    price: "3000～9000",
+    address: "山梨県甲府市善光寺町2769",
+    phone: "055-232-7992",
+    map: "https://www.google.com/maps?q=キャセロール 山梨県甲府市善光寺町2769"
+},
+{
+    id: 119,
+    name: "メゾン ド サトウ ミラベル",
+    genre: "フレンチ",
+    price: "1000～7000",
+    address: "山梨県中央市井之口51-1",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=メゾン ド サトウ ミラベル 山梨県中央市井之口51-1"
+},
+{
+    id: 120,
+    name: "ビストロ メゾン・ド・ルージュ",
+    genre: "フレンチ",
+    price: "1000～5000",
+    address: "山梨県甲府市丸の内1-14-10",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=ビストロ メゾン ド ルージュ 山梨県甲府市丸の内1-14-10"
+},
+{
+    id: 121,
+    name: "焼肉ジュゲン",
+    genre: "焼肉",
+    price: "3000～5000",
+    address: "山梨県甲斐市172-1",
+    phone: "055-269-8929",
+    map: "https://www.google.com/maps?q=焼肉ジュゲン 山梨県甲斐市172-1"
+},
+{
+    id: 122,
+    name: "焼肉きんぐ 甲府昭和店",
+    genre: "焼肉",
+    price: "1000～5000",
+    address: "山梨県中巨摩郡昭和町飯喰1535-3",
+    phone: "055-268-5557",
+    map: "https://www.google.com/maps?q=焼肉きんぐ 甲府昭和店 山梨県中巨摩郡昭和町飯喰1535-3"
+},
+{
+    id: 123,
+    name: "佐渡屋",
+    genre: "焼肉",
+    price: "5000～9000",
+    address: "山梨県甲府市青沼2-3-13",
+    phone: "055-237-3108",
+    map: "https://www.google.com/maps?q=佐渡屋 山梨県甲府市青沼2-3-13"
+},
+{
+    id: 124,
+    name: "たん焼 与平",
+    genre: "焼肉",
+    price: "3000～7000",
+    address: "山梨県甲府市中央周辺",
+    phone: "055-236-3650",
+    map: "https://www.google.com/maps?q=たん焼 与平 山梨県甲府市中央"
+},
+{
+    id: 125,
+    name: "焼肉ホルモンたけ田 甲府平和通り店",
+    genre: "焼肉",
+    price: "1000～3000",
+    address: "山梨県甲府市平和通り沿い",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=焼肉ホルモンたけ田 甲府平和通り店 山梨県甲府市平和通り"
+},
+{
+    id: 126,
+    name: "和牛焼肉たなか",
+    genre: "焼肉",
+    price: "5000～9000",
+    address: "山梨県甲府市徳行",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=和牛焼肉たなか 山梨県甲府市徳行"
+},
+{
+    id: 127,
+    name: "但馬家幸之助 小淵沢店",
+    genre: "焼肉",
+    price: "3000～7000",
+    address: "山梨県北杜市小淵沢町1549-5",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=但馬家幸之助 小淵沢店 山梨県北杜市小淵沢町1549-5"
+},
+{
+    id: 128,
+    name: "焼肉せいざえもん 匠",
+    genre: "焼肉",
+    price: "3000～5000",
+    address: "山梨県南都留郡富士河口湖町",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=焼肉せいざえもん 匠 山梨県南都留郡富士河口湖町"
+},
+{
+    id: 129,
+    name: "炭火焼肉 ひまわり亭",
+    genre: "焼肉",
+    price: "3000～5000",
+    address: "山梨県南都留郡富士河口湖町船津7364-2",
+    phone: "0555-83-2989",
+    map: "https://www.google.com/maps?q=炭火焼肉 ひまわり亭 山梨県南都留郡富士河口湖町船津7364-2"
+},
+{
+    id: 130,
+    name: "秩父焼肉ホルモン酒場 まる助 甲府駅前店",
+    genre: "焼肉",
+    price: "3000～5000",
+    address: "山梨県甲府市丸の内1-2-12",
+    phone: "不明",
+    map: "https://www.google.com/maps?q=秩父焼肉ホルモン酒場 まる助 甲府駅前店 山梨県甲府市丸の内1-2-12"
+},
+{
+    id: 131,
+    name: "いづ屋",
+    genre: "寿司",
+    price: "1000～3000円/5000～",
+    address: "山梨県山梨市上神内川1606",
+    phone: "0553-22-0027",
+    map: "https://www.google.com/maps?q=いづ屋 山梨県山梨市上神内川1606"
+},
+{
+    id: 132,
+    name: "仙場",
+    genre: "寿司",
+    price: "3000～7000",
+    address: "山梨県中巨摩郡昭和町清水新居1664",
+    phone: "055-226-5750",
+    map: "https://www.google.com/maps?q=仙場 山梨県中巨摩郡昭和町清水新居1664"
+},
+{
+    id: 133,
+    name: "横綱寿司 甲府駅前店",
+    genre: "寿司",
+    price: "3000～5000",
+    address: "山梨県甲府市丸の内2-16-7",
+    phone: "055-226-6779",
+    map: "https://www.google.com/maps?q=横綱寿司 甲府駅前店 山梨県甲府市丸の内2-16-7"
+},
+{
+    id: 134,
+    name: "治作鮨",
+    genre: "寿司",
+    price: "3000～7000",
+    address: "山梨県甲府市中央4-8-19",
+    phone: "055-235-1239",
+    map: "https://www.google.com/maps?q=治作鮨 山梨県甲府市中央4-8-19"
+},
+{
+    id: 135,
+    name: "すし・うまいもの処 伊津美",
+    genre: "寿司",
+    price: "1000～5000",
+    address: "山梨県甲府市飯田4-1-4",
+    phone: "0120-581-233",
+    map: "https://www.google.com/maps?q=すし うまいもの処 伊津美 山梨県甲府市飯田4-1-4"
+},
+{
+    id: 136,
+    name: "魚そう本店",
+    genre: "寿司",
+    price: "1000～3000",
+    address: "山梨県甲府市中央4-10-5",
+    phone: "055-235-4328",
+    map: "https://www.google.com/maps?q=魚そう本店 山梨県甲府市中央4-10-5"
+},
+{
+    id: 137,
+    name: "若鮨 本店",
+    genre: "寿司",
+    price: "1000～3000",
+    address: "山梨県甲府市国母8-3-11",
+    phone: "055-225-2228",
+    map: "https://www.google.com/maps?q=若鮨 本店 山梨県甲府市国母8-3-11"
+},
+{
+    id: 138,
+    name: "すし長",
+    genre: "寿司",
+    price: "1000～5000",
+    address: "山梨県甲府市国母7-4-27",
+    phone: "055-228-0944",
+    map: "https://www.google.com/maps?q=すし長 山梨県甲府市国母7-4-27"
+},
+{
+    id: 139,
+    name: "福寿司 本店",
+    genre: "寿司",
+    price: "5000～9000",
+    address: "山梨県甲府市中央1-16-6",
+    phone: "055-237-2954",
+    map: "https://www.google.com/maps?q=福寿司 本店 山梨県甲府市中央1-16-6"
+},
+{
+    id: 140,
+    name: "小僧寿し 朝気店",
+    genre: "寿司",
+    price: "～3000",
+    address: "山梨県甲府市朝気1-9-6",
+    phone: "055-237-7721",
+    map: "https://www.google.com/maps?q=小僧寿し 朝気店 山梨県甲府市朝気1-9-6"
+},
+{
+    id: 141,
+    name: "楽食 北海屋 大里店",
+    genre: "居酒屋",
+    price: "3000～5000",
+    address: "山梨県甲府市大里町4254-1",
+    phone: "055-243-1770",
+    map: "https://www.google.com/maps?q=楽食 北海屋 大里店 山梨県甲府市大里町4254-1"
+},
+{
+    id: 142,
+    name: "魚民 甲府岡島百貨店前店",
+    genre: "居酒屋",
+    price: "1000～5000",
+    address: "山梨県甲府市中央1-6-6 丸忠ビル2F",
+    phone: "055-225-1088",
+    map: "https://www.google.com/maps?q=魚民 甲府岡島百貨店前店 山梨県甲府市中央1-6-6"
+},
+{
+    id: 143,
+    name: "庄や 山梨市駅前店",
+    genre: "居酒屋",
+    price: "3000～5000",
+    address: "山梨県山梨市上神内川1559-1",
+    phone: "0553-20-1408",
+    map: "https://www.google.com/maps?q=庄や 山梨市駅前店 山梨県山梨市上神内川1559-1"
+},
+{
+    id: 144,
+    name: "鮮魚と地鶏 千の庭 甲府店",
+    genre: "居酒屋",
+    price: "3000～7000",
+    address: "山梨県甲府市丸の内1-17-17",
+    phone: "055-221-6633",
+    map: "https://www.google.com/maps?q=鮮魚と地鶏 千の庭 甲府店 山梨県甲府市丸の内1-17-17"
+},
+{
+    id: 145,
+    name: "どてやき",
+    genre: "居酒屋",
+    price: "1000～3000",
+    address: "山梨県甲府市中央4-2-15",
+    phone: "055-232-3044",
+    map: "https://www.google.com/maps?q=どてやき 山梨県甲府市中央4-2-15"
+},
+{
+    id: 146,
+    name: "熊鰹",
+    genre: "居酒屋",
+    price: "3000～7000",
+    address: "山梨県甲府市丸の内2-16-11",
+    phone: "055-287-7458",
+    map: "https://www.google.com/maps?q=熊鰹 山梨県甲府市丸の内2-16-11"
+},
+{
+    id: 147,
+    name: "大衆割烹 友四郎",
+    genre: "居酒屋",
+    price: "3000～5000",
+    address: "山梨県甲府市中央1-13-5 坂本ビル1F",
+    phone: "055-232-8939",
+    map: "https://www.google.com/maps?q=大衆割烹 友四郎 山梨県甲府市中央1-13-5"
+},
+{
+    id: 148,
+    name: "和BAR雲流",
+    genre: "居酒屋",
+    price: "3000～5000",
+    address: "山梨県甲府市千塚4-13-26",
+    phone: "055-251-1100",
+    map: "https://www.google.com/maps?q=和BAR雲流 山梨県甲府市千塚4-13-26"
+},
+{
+    id: 149,
+    name: "ヤキトンともちゃん",
+    genre: "居酒屋",
+    price: "1000～5000",
+    address: "山梨県中巨摩郡昭和町西条5005",
+    phone: "055-268-1175",
+    map: "https://www.google.com/maps?q=ヤキトンともちゃん 山梨県中巨摩郡昭和町西条5005"
+},
+{
+    id: 150,
+    name: "こい季",
+    genre: "居酒屋",
+    price: "3000～7000",
+    address: "山梨県甲府市北口3-4-14",
+    phone: "055-236-8748",
+    map: "https://www.google.com/maps?q=こい季 山梨県甲府市北口3-4-14"
+},
+{
+    id: 151,
+    name: "サンドラッグ 緑が丘店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市緑が丘1-2-16",
+    phone: "055-251-3917",
+    map: "https://www.google.com/maps?q=サンドラッグ 緑が丘店 山梨県甲府市緑が丘1-2-16"
+},
+{
+    id: 152,
+    name: "サンドラッグ 貢川店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市上石田3-9-13",
+    phone: "055-225-0020",
+    map: "https://www.google.com/maps?q=サンドラッグ 貢川店 山梨県甲府市上石田3-9-13"
+},
+{
+    id: 153,
+    name: "サンドラッグ 青沼店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市青沼2-1-1",
+    phone: "055-222-0031",
+    map: "https://www.google.com/maps?q=サンドラッグ 青沼店 山梨県甲府市青沼2-1-1"
+},
+{
+    id: 154,
+    name: "サンドラッグ 甲斐竜王フォレストモール店",
+    genre: "ドラッグストア",
+    address: "山梨県甲斐市富竹新田1714-1",
+    phone: "055-260-8451",
+    map: "https://www.google.com/maps?q=サンドラッグ 甲斐竜王フォレストモール店 山梨県甲斐市富竹新田1714-1"
+},
+{
+    id: 155,
+    name: "カワチ薬品 小瀬店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市上町2425-1",
+    phone: "055-244-1251",
+    map: "https://www.google.com/maps?q=カワチ薬品 小瀬店 山梨県甲府市上町2425-1"
+},
+{
+    id: 156,
+    name: "カワチ薬品 甲府中央店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市飯田1-2-4",
+    phone: "055-223-8155",
+    map: "https://www.google.com/maps?q=カワチ薬品 甲府中央店 山梨県甲府市飯田1-2-4"
+},
+{
+    id: 157,
+    name: "ウエルシア石和店",
+    genre: "ドラッグストア",
+    address: "山梨県笛吹市石和町井戸72",
+    phone: "055-262-8873",
+    map: "https://www.google.com/maps?q=ウエルシア石和店 山梨県笛吹市石和町井戸72"
+},
+{
+    id: 158,
+    name: "ウエルシア甲府富士見店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市富士見1-22-7",
+    phone: "055-255-1505",
+    map: "https://www.google.com/maps?q=ウエルシア甲府富士見店 山梨県甲府市富士見1-22-7"
+},
+{
+    id: 159,
+    name: "ツルハドラッグ 山梨正徳寺店",
+    genre: "ドラッグストア",
+    address: "山梨県山梨市正徳寺1290",
+    phone: "055-323-2680",
+    map: "https://www.google.com/maps?q=ツルハドラッグ 山梨正徳寺店 山梨県山梨市正徳寺1290"
+},
+{
+    id: 160,
+    name: "ドラッグストアコスモス 中小河原店",
+    genre: "ドラッグストア",
+    address: "山梨県甲府市中小河原",
+    phone: "055-243-7681",
+    map: "https://www.google.com/maps?q=ドラッグストアコスモス 中小河原店 山梨県甲府市中小河原"
+}
+];
+
+// 検索
+function search() {
+    document.getElementById("topPage").style.display = "none";
+
+    const keyword = document.getElementById("keyword").value;
+    const genre = document.getElementById("genre").value;
+    const price = document.getElementById("price").value;
+
+    const result = stores.filter(store => {
+        return (
+            store.name.includes(keyword) &&
+            (genre === "" || store.genre === genre) &&
+            (price === "" || store.price <= price)
+        );
+    });
+
+    displayList(result);
+}
+
+// 一覧表示
+function displayList(data) {
+    const list = document.getElementById("listPage");
+    list.innerHTML = "";
+
+    data.forEach(store => {
+        list.innerHTML += `
+            <div class="store" onclick="showDetail(${store.id})">
+                <h3>${store.name}</h3>
+                <p>${store.genre} / ${store.price}円</p>
+            </div>
+        `;
+    });
+}
+
+// 詳細
+function showDetail(id) {
+    const stores = stores.find(s => s.id === id);
+
+    document.getElementById("detailPage").innerHTML = `
+        <h2>${store.name}</h2>
+        <p>金額: ${getPriceLabel(store.price)}</p>
+        <p>住所: ${store.address}</p>
+        <p>電話: ${store.phone}</p>
+        <p>地図: ${store.map}
+    `;
+}
+
+// スライダー自動ループ
+const slider = document.querySelector(".slider");
+
+let scrollAmount = 0;
+
+function autoSlide() {
+    scrollAmount += 1; // スクロール速度
+
+    slider.scrollLeft = scrollAmount;
+
+    // 一番右まで行ったら最初に戻る
+    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+        scrollAmount = 0;
+    }
+}
+
+// 30msごとに動かす（速さ調整OK）
+setInterval(autoSlide, 30);
+``
+
+const track = document.getElementById("sliderTrack");
+
+let pos = 0;
+const speed = 0.5; // ←スピード調整（小さいほどゆっくり）
+
+function animate() {
+    pos += speed;
+
+    // ✅ 半分まで来たら戻す（でも見た目は連続）
+    if (pos >= track.scrollWidth / 2) {
+        pos = 0;
+    }
+
+    track.style.transform = `translateX(${-pos}px)`;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
